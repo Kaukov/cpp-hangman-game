@@ -24,7 +24,14 @@ class Hangman {
     void setGameRules(std::vector<std::string> t_gameRules);
     void fillWords();
     void initialize();
-    std::string wordToLower(std::string word);
+    void setPlaceholder();
+    void printGameScreen();
+    void playGame();
+    void clearScreen();
+    void correctGuess(char t_letter);
+    bool isAllowedChar(char t_symbol);
+    bool isCharContained(char t_letter);
+    std::string wordToLower(std::string t_word);
     std::string getRandomWord() const;
 
     int                         m_languageId        { 0 };
@@ -34,6 +41,7 @@ class Hangman {
     std::string                 m_currentWord       { "" };
     std::string                 m_placeholder       { "" };
     std::string                 m_fileName          { "" };
+    char                        m_userInput;
     std::string                 m_welcomeMessage;
     std::vector<std::string>    m_gameRules;
     std::vector<std::string>    m_words;

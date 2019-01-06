@@ -6,41 +6,121 @@
 
 #include "../../include/hangman.hpp"
 
+#ifdef __unix__
+#define CLEAR_CMD "clear"
+#elif defined(_WIN32) || defined(_WIN64)
+#define CLEAR_CMD "cls"
+#endif
+
 using namespace std;
+
+const string WELCOME_MESSAGE =  "Welcome to Hangman!";
+const vector<string> GAME_RULES = {
+  "1. Have fun!",
+  "2. Complete the game :)"
+};
 
 Hangman::Hangman() {
   m_fileName = "words.txt";
 
   initialize();
+
+  playGame();
 }
 
 Hangman::Hangman(string t_fileName) {
   m_fileName = t_fileName;
 
   initialize();
+
+  playGame();
 }
 
 void Hangman::initialize() {
-  vector<string> gameRules = {
-    "1. Have fun!",
-    "2. Complete the game!"
-  };
-
-  string welcomeMessage = "Welcome to Hangman!";
-
-  setWelcomeMessage(welcomeMessage);
-  setGameRules(gameRules);
-
-  printWelcome();
-  printRules();
+  setWelcomeMessage(WELCOME_MESSAGE);
+  setGameRules(GAME_RULES);
 
   fillWords();
 
   m_currentWord = getRandomWord();
+
+  setPlaceholder();
+}
+
+void Hangman::printGameScreen() {
+  cout << "Your word:" << endl;
+  cout << m_placeholder << endl;
+  cout << endl;
+  cout << "Remaining attempts: " << m_allowedAttempts - m_attempts << endl;
+  cout << "Enter a guess: ";
+}
+
+void Hangman::playGame() {
+  string testInput;
+
+  clearScreen();
+
+  printWelcome();
+  printRules();
+
+  cout << "Press Enter to continue...";
+
+  cin.get();
+
+  clearScreen();
+
+  int i = 0;
+
+  while (!getIsFinished()) {
+    clearScreen();
+
+    printGameScreen();
+
+    cin >> testInput;
+
+    cout << "Your input: " << testInput << endl;
+    cout << "Length: " << testInput.length() << endl;
+
+    if (testInput.length() != 1) {
+      cout << "This is not allowed!";
+    } else {
+      const char *validInput = testInput.c_str();
+
+      m_userInput = *validInput;
+    }
+
+    if (!isAllowedChar(m_userInput)) {
+      // clearScreen();
+
+      // cout << "That character is not allowed!" << endl;
+      // cout << "Press Enter to return to the game" << endl;
+
+      // cin.get();
+
+      // clearScreen();
+      continue;
+    } else if (isCharContained(m_userInput)) {
+      correctGuess(m_userInput);
+    } else {
+      m_attempts++;
+    }
+  }
+}
+
+bool Hangman::isCharContained(char t_letter) {
+  return m_currentWord.find(t_letter) != string::npos;
 }
 
 bool Hangman::getIsFinished() const {
   return m_isFinished;
+}
+
+void Hangman::correctGuess(char t_letter) {
+  for (int i = 0; i < m_currentWord.length(); i++) {
+    if (m_currentWord[i] == t_letter) {
+      m_placeholder[i] = t_letter;
+    }
+  }
 }
 
 void Hangman::setAllowedAttempts(int t_allowedAttempts) {
@@ -97,7 +177,9 @@ void Hangman::fillWords() {
   }
 
   while(getline(file, word)) {
-    m_words.push_back(wordToLower(word));
+    if(!word.empty()) {
+      m_words.push_back(wordToLower(word));
+    }
   }
 
   file.close();
@@ -120,4 +202,26 @@ string Hangman::wordToLower(string word) {
   }
 
   return wordToLower;
+}
+
+bool Hangman::isAllowedChar(char t_symbol) {
+  return t_symbol >= 'a' && t_symbol <= 'z';
+}
+
+void Hangman::setPlaceholder() {
+  string placeholder;
+
+  for (int i = 0; i < m_currentWord.length(); i++) {
+    if (isAllowedChar(m_currentWord[i])) {
+      placeholder += "*";
+    } else {
+      placeholder += m_currentWord[i];
+    }
+  }
+
+  m_placeholder = placeholder;
+}
+
+void Hangman::clearScreen() {
+  system(CLEAR_CMD);
 }
