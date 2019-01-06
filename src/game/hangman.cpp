@@ -22,18 +22,10 @@ const vector<string> GAME_RULES = {
 
 Hangman::Hangman() {
   m_fileName = "words.txt";
-
-  initialize();
-
-  playGame();
 }
 
 Hangman::Hangman(string t_fileName) {
   m_fileName = t_fileName;
-
-  initialize();
-
-  playGame();
 }
 
 void Hangman::initialize() {
@@ -45,6 +37,12 @@ void Hangman::initialize() {
   m_currentWord = getRandomWord();
 
   setPlaceholder();
+}
+
+void Hangman::run() {
+  initialize();
+
+  playGame();
 }
 
 void Hangman::printGameScreen() {
@@ -78,9 +76,6 @@ void Hangman::playGame() {
 
     cin >> testInput;
 
-    cout << "Your input: " << testInput << endl;
-    cout << "Length: " << testInput.length() << endl;
-
     if (testInput.length() != 1) {
       cout << "This is not allowed!";
     } else {
@@ -102,7 +97,7 @@ void Hangman::playGame() {
     } else if (isCharContained(m_userInput)) {
       correctGuess(m_userInput);
     } else {
-      m_attempts++;
+      failAttempt();
     }
   }
 }
@@ -120,6 +115,10 @@ void Hangman::correctGuess(char t_letter) {
     if (m_currentWord[i] == t_letter) {
       m_placeholder[i] = t_letter;
     }
+  }
+
+  if (m_placeholder == m_currentWord) {
+    m_isFinished = true;
   }
 }
 
@@ -224,4 +223,12 @@ void Hangman::setPlaceholder() {
 
 void Hangman::clearScreen() {
   system(CLEAR_CMD);
+}
+
+void Hangman::failAttempt() {
+  m_attempts++;
+
+  if (m_attempts == m_allowedAttempts) {
+    m_isFinished = true;
+  }
 }

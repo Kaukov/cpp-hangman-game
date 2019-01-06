@@ -12,6 +12,7 @@ class Hangman {
     void printRules() const;
     void setAllowedAttempts(int t_allowedAttempts);
     void setLanguage(int t_languageId);
+    void run();
     int getAllowedAttempts() const;
     int getAttempts() const;
     int getLanguage() const;
@@ -29,6 +30,7 @@ class Hangman {
     void playGame();
     void clearScreen();
     void correctGuess(char t_letter);
+    void failAttempt();
     bool isAllowedChar(char t_symbol);
     bool isCharContained(char t_letter);
     std::string wordToLower(std::string t_word);
