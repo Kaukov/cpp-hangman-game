@@ -6,6 +6,7 @@
 
 #include "../../include/hangman.hpp"
 #include "../../include/language.hpp"
+// #include "../../include/dictionary.hpp"
 
 #ifdef __unix__
 #define CLEAR_CMD "clear"
@@ -15,26 +16,30 @@
 
 using namespace std;
 
-Hangman::Hangman() {
-  m_fileName = "words.txt";
-  m_Locale = Localize();
-}
-
 Hangman::Hangman(string t_fileName) {
   m_fileName = t_fileName;
   m_Locale = Localize();
+  m_Dictionary = Dictionary();
 }
 
-void Hangman::initialize() {
-  fillWords();
+// void Hangman::initialize() {
+//   getDictionary().initialize(m_fileName);
 
-  m_currentWord = getRandomWord();
+//   fillWords();
 
-  setPlaceholder();
-}
+//   m_currentWord = getRandomWord();
+
+//   setPlaceholder();
+// }
 
 void Hangman::run() {
-  initialize();
+  // initialize();
+
+  getDictionary().initialize(m_fileName);
+
+  m_currentWord = getDictionary().getRandomWord();
+
+  cout << "WORD CHOSEN: " << m_currentWord << endl;
 
   playGame();
 }
@@ -117,44 +122,44 @@ void Hangman::correctGuess(char t_letter) {
   }
 }
 
-void Hangman::fillWords() {
-  ifstream file;
-  string word;
+// void Hangman::fillWords() {
+//   ifstream file;
+//   string word;
 
-  file.open(m_fileName);
+//   file.open(m_fileName);
 
-  if (!file) {
-    cout << "Unable to open file: " << m_fileName << endl;
-    exit(1);
-  }
+//   if (!file) {
+//     cout << "Unable to open file: " << m_fileName << endl;
+//     exit(1);
+//   }
 
-  while(getline(file, word)) {
-    if(!word.empty()) {
-      m_words.push_back(wordToLower(word));
-    }
-  }
+//   while(getline(file, word)) {
+//     if(!word.empty()) {
+//       m_words.push_back(wordToLower(word));
+//     }
+//   }
 
-  file.close();
-}
+//   file.close();
+// }
 
-string Hangman::getRandomWord() const {
-  srand(time(nullptr));
+// string Hangman::getRandomWord() const {
+//   srand(time(nullptr));
 
-  int index = rand() % m_words.size() + 1;
+//   int index = rand() % m_words.size() + 1;
 
-  return m_words[index];
-}
+//   return m_words[index];
+// }
 
-string Hangman::wordToLower(string word) {
-  locale loc;
-  string wordToLower;
+// string Hangman::wordToLower(string word) {
+//   locale loc;
+//   string wordToLower;
 
-  for (string::size_type i = 0; i < word.length(); i++) {
-    wordToLower += tolower(word[i], loc);
-  }
+//   for (string::size_type i = 0; i < word.length(); i++) {
+//     wordToLower += tolower(word[i], loc);
+//   }
 
-  return wordToLower;
-}
+//   return wordToLower;
+// }
 
 bool Hangman::isAllowedChar(char t_symbol) {
   return t_symbol >= 'a' && t_symbol <= 'z';

@@ -4,10 +4,10 @@
 
 #include <vector>
 #include "./localize.hpp"
+#include "./dictionary.hpp"
 
 class Hangman {
   public:
-    Hangman();
     Hangman(std::string t_fileName);
     void run();
     void setAllowedAttempts(int t_allowedAttempts) { m_allowedAttempts = t_allowedAttempts; }
@@ -18,12 +18,13 @@ class Hangman {
     bool getIsWon() const { return m_isWon; }
     std::string getPlaceholder() { return m_placeholder; }
     Localize getLocale() { return m_Locale; }
+    Dictionary getDictionary() { return m_Dictionary; }
 
   private:
     void setIsFinished(bool t_isFinished) { m_isFinished = t_isFinished; }
     void setIsWon(bool t_isWon) { m_isWon = t_isWon; }
     void fillWords();
-    void initialize();
+    // void initialize();
     void setPlaceholder();
     void printGameScreen();
     void playGame();
@@ -44,8 +45,9 @@ class Hangman {
     std::string                 m_placeholder       { "" };
     std::string                 m_fileName          { "" };
     char                        m_userInput;
-    std::vector<std::string>    m_words;
+    // std::vector<std::string>    m_words;
     Localize                    m_Locale;
+    Dictionary                  m_Dictionary;
 };
 
 #endif // HANGMAN_HANGMAN_HPP
