@@ -2,10 +2,8 @@
 
 #define HANGMAN_MAIN_HPP
 
-#include "./language.hpp"
-
 void getLanguage();
 
-int m_languageId;
+int m_languageId { 1 };
 
 #endif // HANGMAN_MAIN_HPP

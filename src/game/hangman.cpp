@@ -32,9 +32,6 @@ Hangman::Hangman(string t_fileName) {
 }
 
 void Hangman::initialize() {
-  setWelcomeMessage(WELCOME_MESSAGE);
-  setGameRules(GAME_RULES);
-
   fillWords();
 
   m_currentWord = getRandomWord();
@@ -61,8 +58,9 @@ void Hangman::playGame() {
 
   clearScreen();
 
-  printWelcome();
-  printRules();
+  // Language -> print welcome message + rules
+  // printWelcome();
+  // printRules();
 
   cout << "Press Enter to continue...";
 
@@ -141,26 +139,8 @@ void Hangman::setLanguage(int t_languageId) {
   m_Locale.setLanguage(t_languageId);
 }
 
-void Hangman::printWelcome() const {
-  cout << m_welcomeMessage << endl;
-}
-
-void Hangman::printRules() const {
-  for (const string & rule : m_gameRules) {
-    cout << rule << endl;
-  }
-}
-
 void Hangman::setIsFinished(bool t_isFinished) {
   m_isFinished = t_isFinished;
-}
-
-void Hangman::setWelcomeMessage(string t_welcomeMessage) {
-  m_welcomeMessage = t_welcomeMessage;
-}
-
-void Hangman::setGameRules(vector<string> t_gameRules) {
-  m_gameRules = t_gameRules;
 }
 
 void Hangman::fillWords() {

@@ -8,12 +8,11 @@
 class Language {
   public:
     Language();
-    void setLanguage(int t_languageId);
-    void displayRules() const;
-    void displayMessage(std::string t_message);
+    void displayMessage(std::string t_message) { std::cout << t_message << std::endl; }
+    void displayWelcomeMessage() { displayMessage(m_welcomeMessage); }
+    void displayRules();
 
-  private:
-    int                         m_languageId;
+  protected:
     std::string                 m_welcomeMessage;
     std::vector<std::string>    m_gameRules;
 };

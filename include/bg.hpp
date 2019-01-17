@@ -2,10 +2,9 @@
 
 #define HANGMAN_BG_HPP
 
-#include "./language.hpp"
-
 class Bulgarian : public Language {
-  //
+  public:
+    Bulgarian();
 };
 
 #endif // HANGMAN_BG_HPP

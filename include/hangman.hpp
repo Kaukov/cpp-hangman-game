@@ -9,8 +9,6 @@ class Hangman {
   public:
     Hangman();
     Hangman(std::string t_fileName);
-    void printWelcome() const;
-    void printRules() const;
     void setAllowedAttempts(int t_allowedAttempts);
     void setLanguage(int t_languageId);
     void run();
@@ -22,8 +20,6 @@ class Hangman {
 
   private:
     void setIsFinished(bool t_isFinished);
-    void setWelcomeMessage(std::string t_welcomeMessage);
-    void setGameRules(std::vector<std::string> t_gameRules);
     void fillWords();
     void initialize();
     void setPlaceholder();
@@ -44,8 +40,6 @@ class Hangman {
     std::string                 m_placeholder       { "" };
     std::string                 m_fileName          { "" };
     char                        m_userInput;
-    std::string                 m_welcomeMessage;
-    std::vector<std::string>    m_gameRules;
     std::vector<std::string>    m_words;
     Localize                    m_Locale;
 };

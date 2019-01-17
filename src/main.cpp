@@ -16,7 +16,7 @@ int main() {
 
   game.setLanguage(m_languageId);
 
-  game.run();
+  // game.run();
 
   return 0;
 }

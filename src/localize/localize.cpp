@@ -10,10 +10,7 @@
 
 using namespace std;
 
-Localize::Localize () {
-  // Default to English
-  m_Language = English();
-}
+Localize::Localize () { }
 
 void Localize::setLanguage(int t_languageId) {
   switch (t_languageId) {
