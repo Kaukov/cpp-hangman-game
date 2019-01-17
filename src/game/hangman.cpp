@@ -35,13 +35,16 @@ void Hangman::printGameScreen() {
 void Hangman::play() {
   string testInput;
 
-  m_currentWord = getDictionary().getRandomWord();
+  // m_currentWord = getDictionary().getRandomWord();
 
   getLocale().getLanguage().displayWelcomeMessage();
 
   getLocale().getLanguage().displayRules();
 
   cout << endl;
+
+
+  return;
 
   // cout << getLocale().getLanguage().getPressEnterMessage();
 
@@ -57,7 +60,7 @@ void Hangman::play() {
     cin >> testInput;
 
     if (testInput.length() != 1) {
-      cout << "This is not allowed!";
+      cout << "This is not allowed!" << endl;
     } else {
       const char *validInput = testInput.c_str();
 
@@ -92,7 +95,7 @@ void Hangman::correctGuess(char t_letter) {
   getDictionary().fillCorrectGuess(t_letter);
 
   if (getDictionary().isWordComplete()) {
-    m_isFinished = true;
+    setIsFinished(true);
   }
 }
 
@@ -116,6 +119,6 @@ void Hangman::failAttempt() {
   m_attempts++;
 
   if (m_attempts == m_allowedAttempts) {
-    m_isFinished = true;
+    setIsFinished(true);
   }
 }

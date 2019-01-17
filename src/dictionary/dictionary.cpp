@@ -39,6 +39,9 @@ bool Dictionary::isCharContained(char t_letter) {
 string Dictionary::getRandomWord() {
   srand(time(nullptr));
 
+  cout << "Words: " << m_words.size() << endl;
+  return "-----";
+
   int index = rand() % m_words.size() + 1;
 
   return m_words[index];
