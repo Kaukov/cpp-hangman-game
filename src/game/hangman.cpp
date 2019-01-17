@@ -5,6 +5,7 @@
 #include <locale>
 
 #include "../../include/hangman.hpp"
+#include "../../include/language.hpp"
 
 #ifdef __unix__
 #define CLEAR_CMD "clear"
@@ -22,10 +23,12 @@ const vector<string> GAME_RULES = {
 
 Hangman::Hangman() {
   m_fileName = "words.txt";
+  m_Locale = Localize();
 }
 
 Hangman::Hangman(string t_fileName) {
   m_fileName = t_fileName;
+  m_Locale = Localize();
 }
 
 void Hangman::initialize() {
@@ -135,11 +138,7 @@ int Hangman::getAttempts() const {
 }
 
 void Hangman::setLanguage(int t_languageId) {
-  m_languageId = t_languageId;
-}
-
-int Hangman::getLanguage() const {
-  return m_languageId;
+  m_Locale.setLanguage(t_languageId);
 }
 
 void Hangman::printWelcome() const {

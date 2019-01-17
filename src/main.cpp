@@ -12,7 +12,18 @@ int main() {
   // Localize
   Hangman game;
 
+  getLanguage();
+
+  game.setLanguage(m_languageId);
+
   game.run();
 
   return 0;
+}
+
+void getLanguage() {
+  cout << "1 - English; 2 - Български" << endl;
+  cout << "Enter your desired language / Изберете предпочитан език" << endl;
+
+  cin >> m_languageId;
 }

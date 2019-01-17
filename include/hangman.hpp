@@ -3,6 +3,7 @@
 #define HANGMAN_HANGMAN_HPP
 
 #include <vector>
+#include "./localize.hpp"
 
 class Hangman {
   public:
@@ -36,7 +37,6 @@ class Hangman {
     std::string wordToLower(std::string t_word);
     std::string getRandomWord() const;
 
-    int                         m_languageId        { 0 };
     int                         m_attempts          { 0 };
     int                         m_allowedAttempts   { 7 };
     bool                        m_isFinished        { false };
@@ -47,6 +47,7 @@ class Hangman {
     std::string                 m_welcomeMessage;
     std::vector<std::string>    m_gameRules;
     std::vector<std::string>    m_words;
+    Localize                    m_Locale;
 };
 
 #endif // HANGMAN_HANGMAN_HPP
