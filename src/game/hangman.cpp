@@ -104,10 +104,6 @@ bool Hangman::isCharContained(char t_letter) {
   return m_currentWord.find(t_letter) != string::npos;
 }
 
-bool Hangman::getIsFinished() const {
-  return m_isFinished;
-}
-
 void Hangman::correctGuess(char t_letter) {
   for (int i = 0; i < m_currentWord.length(); i++) {
     if (m_currentWord[i] == t_letter) {
@@ -116,28 +112,8 @@ void Hangman::correctGuess(char t_letter) {
   }
 
   if (m_placeholder == m_currentWord) {
-    m_isFinished = true;
+    setIsFinished(true);
   }
-}
-
-void Hangman::setAllowedAttempts(int t_allowedAttempts) {
-  m_allowedAttempts = t_allowedAttempts;
-}
-
-int Hangman::getAllowedAttempts() const {
-  return m_allowedAttempts;
-}
-
-int Hangman::getAttempts() const {
-  return m_attempts;
-}
-
-void Hangman::setLanguage(int t_languageId) {
-  m_Locale.setLanguage(t_languageId);
-}
-
-void Hangman::setIsFinished(bool t_isFinished) {
-  m_isFinished = t_isFinished;
 }
 
 void Hangman::fillWords() {
@@ -205,10 +181,6 @@ void Hangman::failAttempt() {
   m_attempts++;
 
   if (m_attempts == m_allowedAttempts) {
-    m_isFinished = true;
+    setIsFinished(true);
   }
-}
-
-Localize Hangman::getLocale() {
-  return m_Locale;
 }

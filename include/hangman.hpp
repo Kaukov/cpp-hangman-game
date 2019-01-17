@@ -9,17 +9,17 @@ class Hangman {
   public:
     Hangman();
     Hangman(std::string t_fileName);
-    void setAllowedAttempts(int t_allowedAttempts);
-    void setLanguage(int t_languageId);
     void run();
-    int getAllowedAttempts() const;
-    int getAttempts() const;
-    bool getIsFinished() const;
-    std::string getPlaceholder();
-    Localize getLocale();
+    void setAllowedAttempts(int t_allowedAttempts) { m_allowedAttempts = t_allowedAttempts; }
+    void setLanguage(int t_languageId) { m_Locale.setLanguage(t_languageId); }
+    int getAllowedAttempts() const { return m_allowedAttempts; }
+    int getAttempts() const { return m_attempts; }
+    bool getIsFinished() const { return m_isFinished; }
+    std::string getPlaceholder() { return m_placeholder; }
+    Localize getLocale() { return m_Locale; }
 
   private:
-    void setIsFinished(bool t_isFinished);
+    void setIsFinished(bool t_isFinished) { m_isFinished = t_isFinished; }
     void fillWords();
     void initialize();
     void setPlaceholder();
