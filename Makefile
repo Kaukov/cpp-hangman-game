@@ -1,2 +1,9 @@
+CC := g++
+SRCDIR := src
+TARGET := hangman
+
+SRCEXT := cpp
+SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
+
 build:
-	g++ src/main.cpp src/game/hangman.cpp src/localize/language.cpp src/localize/localize.cpp src/localize/languages/en.cpp src/localize/languages/bg.cpp src/dictionary/dictionary.cpp src/dictionary/word.cpp -o hangman
+	$(CC) $(SOURCES) -o $(TARGET)
