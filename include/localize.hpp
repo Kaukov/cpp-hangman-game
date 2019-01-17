@@ -6,9 +6,8 @@
 
 class Localize {
   public:
-    Localize();
     void setLanguage(int t_languageId);
-    Language getLanguage();
+    Language& getLanguage() { return m_Language; }
 
   private:
     Language m_Language;

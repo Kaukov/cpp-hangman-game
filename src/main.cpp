@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 
 #include "../include/main.hpp"
 #include "../include/hangman.hpp"

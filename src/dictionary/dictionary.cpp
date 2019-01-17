@@ -1,14 +1,9 @@
 #include <iostream>
-#include <string>
-#include <vector>
 #include <fstream>
-#include <locale>
 
 #include "../../include/dictionary.hpp"
 
 using namespace std;
-
-Dictionary::Dictionary() { }
 
 void Dictionary::initialize(string t_fileName) {
   m_fileName = t_fileName;

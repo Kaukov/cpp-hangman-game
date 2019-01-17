@@ -1,6 +1,4 @@
 #include <iostream>
-#include <string>
-#include <vector>
 
 #include "../../include/localize.hpp"
 
@@ -9,8 +7,6 @@
 #include "../../include/en.hpp"
 
 using namespace std;
-
-Localize::Localize () { }
 
 void Localize::setLanguage(int t_languageId) {
   switch (t_languageId) {
@@ -26,8 +22,4 @@ void Localize::setLanguage(int t_languageId) {
       m_Language = English();
       break;
   }
-}
-
-Language Localize::getLanguage() {
-  return m_Language;
 }

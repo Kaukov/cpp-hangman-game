@@ -6,7 +6,6 @@
 
 class Dictionary {
   public:
-    Dictionary();
     void initialize(std::string t_fileName);
     void setCorrectGuess(char t_letter);
     bool isAllowedChar(char t_symbol);

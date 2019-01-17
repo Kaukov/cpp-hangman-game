@@ -7,7 +7,7 @@ using namespace std;
 Language::Language() { }
 
 void Language::displayRules() {
-  for (string rule : m_gameRules) {
+  for (const string rule : m_gameRules) {
     displayMessage(rule);
   }
 }
