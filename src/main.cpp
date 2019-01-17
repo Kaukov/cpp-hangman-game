@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 
 #include "../include/main.hpp"
 #include "../include/hangman.hpp"
@@ -9,13 +8,13 @@ using namespace std;
 int main() {
   // TODO
   // Handle repeated answers (wrong and right)
-  Hangman game;
-
   getLanguage();
 
-  game.setLanguage(m_languageId);
+  Hangman Game("words.txt");
 
-  game.run();
+  Game.setLanguage(m_languageId);
+
+  Game.play();
 
   return 0;
 }
