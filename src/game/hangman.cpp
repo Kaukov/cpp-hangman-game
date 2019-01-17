@@ -19,7 +19,7 @@ void Hangman::setLanguage(int t_languageId) {
 }
 
 void Hangman::printGameScreen() {
-  cout << getLocale().getLanguage().getYourWordMessage() << getDictionary().getPlaceholder() << endl;
+  cout << getLocale().getLanguage().getYourWordMessage() << getWord().getPlaceholder() << endl;
   cout << endl;
   cout << getLocale().getLanguage().getRemainingAttemptsMessage() << m_allowedAttempts - m_attempts << endl;
   cout << getLocale().getLanguage().getEnterGuessMessage();
@@ -29,6 +29,8 @@ void Hangman::play() {
   string testInput;
 
   getDictionary().initialize(m_fileName);
+
+  getWord().setWord(getDictionary().pickRandomWord());
 
   getLocale().getLanguage().displayWelcomeMessage();
 
@@ -57,7 +59,7 @@ void Hangman::play() {
       m_userInput = *validInput;
     }
 
-    if (!getDictionary().isAllowedChar(m_userInput)) {
+    if (!getWord().isAllowedChar(m_userInput)) {
       // clearScreen();
 
       // cout << "That character is not allowed!" << endl;
@@ -67,7 +69,7 @@ void Hangman::play() {
 
       // clearScreen();
       continue;
-    } else if (getDictionary().isCharContained(m_userInput)) {
+    } else if (getWord().isCharContained(m_userInput)) {
       correctGuess(m_userInput);
     } else {
       failAttempt();
@@ -82,9 +84,9 @@ void Hangman::play() {
 }
 
 void Hangman::correctGuess(char t_letter) {
-  getDictionary().setCorrectGuess(t_letter);
+  getWord().setCorrectGuess(t_letter);
 
-  if (getDictionary().getPlaceholder() == getDictionary().getCurrentWord()) {
+  if (getWord().getPlaceholder() == getWord().getFullWord()) {
     setIsFinished(true);
     setIsWon(true);
   }
@@ -110,7 +112,7 @@ void Hangman::printEndGame() {
   cout << "You " << playerStatus << "!" << endl;
 
   if (!getIsWon()) {
-    cout << "Your word was: " << getDictionary().getCurrentWord() << endl;
+    cout << "Your word was: " << getWord().getFullWord() << endl;
   } else {
     cout << "It took you " << m_attempts << " attempts" << endl;
   }

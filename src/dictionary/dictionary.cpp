@@ -43,42 +43,10 @@ string Dictionary::wordToLower(string word) {
   return wordToLower;
 }
 
-void Dictionary::pickRandomWord() {
+string Dictionary::pickRandomWord() {
   srand(time(nullptr));
 
   int index = rand() % m_words.size() + 1;
 
-  m_currentWord = m_words[index];
-
-  setPlaceholder();
-}
-
-bool Dictionary::isAllowedChar(char t_symbol) {
-  return t_symbol >= 'a' && t_symbol <= 'z';
-}
-
-void Dictionary::setPlaceholder() {
-  string placeholder;
-
-  for (int i = 0; i < m_currentWord.length(); i++) {
-    if (isAllowedChar(m_currentWord[i])) {
-      placeholder += "*";
-    } else {
-      placeholder += m_currentWord[i];
-    }
-  }
-
-  m_placeholder = placeholder;
-}
-
-void Dictionary::setCorrectGuess(char t_letter) {
-  for (int i = 0; i < m_currentWord.length(); i++) {
-    if (m_currentWord[i] == t_letter) {
-      m_placeholder[i] = t_letter;
-    }
-  }
-}
-
-bool Dictionary::isCharContained(char t_letter) {
-  return m_currentWord.find(t_letter) != string::npos;
+  return m_words[index];
 }
