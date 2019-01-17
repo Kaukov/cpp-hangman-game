@@ -14,9 +14,9 @@ class Hangman {
     void run();
     int getAllowedAttempts() const;
     int getAttempts() const;
-    int getLanguage() const;
     bool getIsFinished() const;
     std::string getPlaceholder();
+    Localize getLocale();
 
   private:
     void setIsFinished(bool t_isFinished);

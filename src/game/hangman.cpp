@@ -15,12 +15,6 @@
 
 using namespace std;
 
-const string WELCOME_MESSAGE =  "Welcome to Hangman!";
-const vector<string> GAME_RULES = {
-  "1. Have fun!",
-  "2. Complete the game :)"
-};
-
 Hangman::Hangman() {
   m_fileName = "words.txt";
   m_Locale = Localize();
@@ -46,32 +40,29 @@ void Hangman::run() {
 }
 
 void Hangman::printGameScreen() {
-  cout << "Your word:" << endl;
-  cout << m_placeholder << endl;
+  cout << getLocale().getLanguage().getYourWordMessage() << m_placeholder << endl;
   cout << endl;
-  cout << "Remaining attempts: " << m_allowedAttempts - m_attempts << endl;
-  cout << "Enter a guess: ";
+  cout << getLocale().getLanguage().getRemainingAttemptsMessage() << m_allowedAttempts - m_attempts << endl;
+  cout << getLocale().getLanguage().getEnterGuessMessage();
 }
 
 void Hangman::playGame() {
   string testInput;
 
-  clearScreen();
+  getLocale().getLanguage().displayWelcomeMessage();
 
-  // Language -> print welcome message + rules
-  // printWelcome();
-  // printRules();
+  getLocale().getLanguage().displayRules();
 
-  cout << "Press Enter to continue...";
+  cout << endl;
 
-  cin.get();
+  // cout << getLocale().getLanguage().getPressEnterMessage();
 
-  clearScreen();
+  // cin.get();
 
-  int i = 0;
+  // clearScreen();
 
   while (!getIsFinished()) {
-    clearScreen();
+    // clearScreen();
 
     printGameScreen();
 
@@ -100,6 +91,12 @@ void Hangman::playGame() {
     } else {
       failAttempt();
     }
+
+    cout << endl;
+    cout << "--------------------" << endl;
+    cout << endl;
+
+    // clearScreen();
   }
 }
 
@@ -210,4 +207,8 @@ void Hangman::failAttempt() {
   if (m_attempts == m_allowedAttempts) {
     m_isFinished = true;
   }
+}
+
+Localize Hangman::getLocale() {
+  return m_Locale;
 }

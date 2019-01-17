@@ -16,14 +16,14 @@ int main() {
 
   game.setLanguage(m_languageId);
 
-  // game.run();
+  game.run();
 
   return 0;
 }
 
 void getLanguage() {
-  cout << "1 - English; 2 - Български" << endl;
   cout << "Enter your desired language / Изберете предпочитан език" << endl;
-
+  cout << "1 - English; 2 - Български" << endl;
+  cout << "1 / 2 : ";
   cin >> m_languageId;
 }
