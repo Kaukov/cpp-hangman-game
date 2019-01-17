@@ -92,11 +92,11 @@ void Hangman::playGame() {
       failAttempt();
     }
 
-    cout << endl;
-    cout << "--------------------" << endl;
-    cout << endl;
-
-    // clearScreen();
+    if (!getIsFinished()) {
+      clearScreen();
+    } else {
+      printEndGame();
+    }
   }
 }
 
@@ -113,6 +113,7 @@ void Hangman::correctGuess(char t_letter) {
 
   if (m_placeholder == m_currentWord) {
     setIsFinished(true);
+    setIsWon(true);
   }
 }
 
@@ -182,5 +183,21 @@ void Hangman::failAttempt() {
 
   if (m_attempts == m_allowedAttempts) {
     setIsFinished(true);
+    setIsWon(false);
   }
+}
+
+void Hangman::printEndGame() {
+  string playerStatus = m_attempts == m_allowedAttempts ? "lost" : "won";
+
+  cout << "Game Over!" << endl;
+  cout << "You " << playerStatus << "!" << endl;
+
+  if (!getIsWon()) {
+    cout << "Your word was: " << m_currentWord << endl;
+  } else {
+    cout << "It took you " << m_allowedAttempts - m_attempts << " attempts" << endl;
+  }
+
+  cout << endl;
 }

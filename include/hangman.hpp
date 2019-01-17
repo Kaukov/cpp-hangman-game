@@ -15,11 +15,13 @@ class Hangman {
     int getAllowedAttempts() const { return m_allowedAttempts; }
     int getAttempts() const { return m_attempts; }
     bool getIsFinished() const { return m_isFinished; }
+    bool getIsWon() const { return m_isWon; }
     std::string getPlaceholder() { return m_placeholder; }
     Localize getLocale() { return m_Locale; }
 
   private:
     void setIsFinished(bool t_isFinished) { m_isFinished = t_isFinished; }
+    void setIsWon(bool t_isWon) { m_isWon = t_isWon; }
     void fillWords();
     void initialize();
     void setPlaceholder();
@@ -28,6 +30,7 @@ class Hangman {
     void clearScreen();
     void correctGuess(char t_letter);
     void failAttempt();
+    void printEndGame();
     bool isAllowedChar(char t_symbol);
     bool isCharContained(char t_letter);
     std::string wordToLower(std::string t_word);
@@ -36,6 +39,7 @@ class Hangman {
     int                         m_attempts          { 0 };
     int                         m_allowedAttempts   { 7 };
     bool                        m_isFinished        { false };
+    bool                        m_isWon             { false };
     std::string                 m_currentWord       { "" };
     std::string                 m_placeholder       { "" };
     std::string                 m_fileName          { "" };
