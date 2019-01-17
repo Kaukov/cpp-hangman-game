@@ -15,6 +15,10 @@ class Language {
   protected:
     std::string                 m_welcomeMessage;
     std::vector<std::string>    m_gameRules;
+    std::string                 m_yourWordMessage;
+    std::string                 m_remainingAttemptsMessage;
+    std::string                 m_enterGuessMessage;
+    std::string                 m_pressEnterMessage;
 };
 
 #endif // HANGMAN_LANGUAGE_HPP

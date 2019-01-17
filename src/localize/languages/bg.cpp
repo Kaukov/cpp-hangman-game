@@ -15,4 +15,12 @@ Bulgarian::Bulgarian() {
   };
 
   m_welcomeMessage = "Добре дошли в играта бесеница!";
+
+  m_yourWordMessage = "Вашата дума: ";
+
+  m_remainingAttemptsMessage = "Оставащи опити: ";
+
+  m_enterGuessMessage = "Въведете буква: ";
+
+  m_pressEnterMessage = "Натиснете клавиш Enter, за да продължите...";
 }
