@@ -8,11 +8,12 @@
 
 using namespace std;
 
+Dictionary::Dictionary() { }
+
 void Dictionary::initialize(string t_fileName) {
   m_fileName = t_fileName;
 
   fillDictionary();
-  pickRandomWord();
 }
 
 void Dictionary::fillDictionary() {
@@ -46,12 +47,12 @@ string Dictionary::wordToLower(string word) {
   return wordToLower;
 }
 
-void Dictionary::pickRandomWord() {
+string Dictionary::getRandomWord() {
   srand(time(nullptr));
 
   int index = rand() % m_words.size() + 1;
 
-  cout << "WORD: " << m_words[index] << endl;
-
   m_currentWord = m_words[index];
+
+  return m_currentWord;
 }

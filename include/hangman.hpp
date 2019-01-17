@@ -9,16 +9,16 @@
 class Hangman {
   public:
     Hangman(std::string t_fileName);
-    void run();
+    void play();
     void setAllowedAttempts(int t_allowedAttempts) { m_allowedAttempts = t_allowedAttempts; }
-    void setLanguage(int t_languageId) { m_Locale.setLanguage(t_languageId); }
+    void setLanguage(int t_languageId);
     int getAllowedAttempts() const { return m_allowedAttempts; }
     int getAttempts() const { return m_attempts; }
     bool getIsFinished() const { return m_isFinished; }
     bool getIsWon() const { return m_isWon; }
     std::string getPlaceholder() { return m_placeholder; }
-    Localize getLocale() { return m_Locale; }
-    Dictionary getDictionary() { return m_Dictionary; }
+    Localize& getLocale() { return m_Locale; }
+    Dictionary& getDictionary() { return m_Dictionary; }
 
   private:
     void setIsFinished(bool t_isFinished) { m_isFinished = t_isFinished; }
@@ -45,7 +45,6 @@ class Hangman {
     std::string                 m_placeholder       { "" };
     std::string                 m_fileName          { "" };
     char                        m_userInput;
-    // std::vector<std::string>    m_words;
     Localize                    m_Locale;
     Dictionary                  m_Dictionary;
 };

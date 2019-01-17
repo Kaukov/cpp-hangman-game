@@ -18,30 +18,10 @@ using namespace std;
 
 Hangman::Hangman(string t_fileName) {
   m_fileName = t_fileName;
-  m_Locale = Localize();
-  m_Dictionary = Dictionary();
 }
 
-// void Hangman::initialize() {
-//   getDictionary().initialize(m_fileName);
-
-//   fillWords();
-
-//   m_currentWord = getRandomWord();
-
-//   setPlaceholder();
-// }
-
-void Hangman::run() {
-  // initialize();
-
-  getDictionary().initialize(m_fileName);
-
-  m_currentWord = getDictionary().getRandomWord();
-
-  cout << "WORD CHOSEN: " << m_currentWord << endl;
-
-  playGame();
+void Hangman::setLanguage(int t_languageId) {
+  getLocale().setLanguage(t_languageId);
 }
 
 void Hangman::printGameScreen() {
@@ -51,8 +31,12 @@ void Hangman::printGameScreen() {
   cout << getLocale().getLanguage().getEnterGuessMessage();
 }
 
-void Hangman::playGame() {
+void Hangman::play() {
   string testInput;
+
+  getDictionary().initialize(m_fileName);
+
+  m_currentWord = getDictionary().getRandomWord();
 
   getLocale().getLanguage().displayWelcomeMessage();
 

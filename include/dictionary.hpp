@@ -6,13 +6,13 @@
 
 class Dictionary {
   public:
+    Dictionary();
     void initialize(std::string t_fileName);
-    std::string getRandomWord() { return m_currentWord; }
+    std::string getRandomWord();
 
   private:
     void fillDictionary();
     void setPlaceholder();
-    void pickRandomWord();
     std::string wordToLower(std::string word);
 
     std::string                   m_fileName;
