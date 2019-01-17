@@ -5,7 +5,10 @@
 #include <locale>
 
 #include "../../include/hangman.hpp"
+#include "../../include/localize.hpp"
 #include "../../include/language.hpp"
+#include "../../include/dictionary.hpp"
+#include "../../include/word.hpp"
 
 #ifdef __unix__
 #define CLEAR_CMD "clear"
@@ -15,28 +18,11 @@
 
 using namespace std;
 
-Hangman::Hangman() {
-  m_fileName = "words.txt";
-  m_Locale = Localize();
-}
-
 Hangman::Hangman(string t_fileName) {
-  m_fileName = t_fileName;
   m_Locale = Localize();
-}
+  m_Dictionary = Dictionary();
 
-void Hangman::initialize() {
-  fillWords();
-
-  m_currentWord = getRandomWord();
-
-  setPlaceholder();
-}
-
-void Hangman::run() {
-  initialize();
-
-  playGame();
+  getDictionary().setFileName(t_fileName);
 }
 
 void Hangman::printGameScreen() {
@@ -46,8 +32,10 @@ void Hangman::printGameScreen() {
   cout << getLocale().getLanguage().getEnterGuessMessage();
 }
 
-void Hangman::playGame() {
+void Hangman::play() {
   string testInput;
+
+  m_currentWord = getDictionary().getRandomWord();
 
   getLocale().getLanguage().displayWelcomeMessage();
 
@@ -76,7 +64,7 @@ void Hangman::playGame() {
       m_userInput = *validInput;
     }
 
-    if (!isAllowedChar(m_userInput)) {
+    if (!getDictionary().isAllowedChar(m_userInput)) {
       // clearScreen();
 
       // cout << "That character is not allowed!" << endl;
@@ -86,7 +74,7 @@ void Hangman::playGame() {
 
       // clearScreen();
       continue;
-    } else if (isCharContained(m_userInput)) {
+    } else if (getDictionary().isCharContained(m_userInput)) {
       correctGuess(m_userInput);
     } else {
       failAttempt();
@@ -100,22 +88,10 @@ void Hangman::playGame() {
   }
 }
 
-bool Hangman::isCharContained(char t_letter) {
-  return m_currentWord.find(t_letter) != string::npos;
-}
-
-bool Hangman::getIsFinished() const {
-  return m_isFinished;
-}
-
 void Hangman::correctGuess(char t_letter) {
-  for (int i = 0; i < m_currentWord.length(); i++) {
-    if (m_currentWord[i] == t_letter) {
-      m_placeholder[i] = t_letter;
-    }
-  }
+  getDictionary().fillCorrectGuess(t_letter);
 
-  if (m_placeholder == m_currentWord) {
+  if (getDictionary().isWordComplete()) {
     m_isFinished = true;
   }
 }
@@ -124,77 +100,12 @@ void Hangman::setAllowedAttempts(int t_allowedAttempts) {
   m_allowedAttempts = t_allowedAttempts;
 }
 
-int Hangman::getAllowedAttempts() const {
-  return m_allowedAttempts;
-}
-
-int Hangman::getAttempts() const {
-  return m_attempts;
-}
-
 void Hangman::setLanguage(int t_languageId) {
-  m_Locale.setLanguage(t_languageId);
+  getLocale().setLanguage(t_languageId);
 }
 
 void Hangman::setIsFinished(bool t_isFinished) {
   m_isFinished = t_isFinished;
-}
-
-void Hangman::fillWords() {
-  ifstream file;
-  string word;
-
-  file.open(m_fileName);
-
-  if (!file) {
-    cout << "Unable to open file: " << m_fileName << endl;
-    exit(1);
-  }
-
-  while(getline(file, word)) {
-    if(!word.empty()) {
-      m_words.push_back(wordToLower(word));
-    }
-  }
-
-  file.close();
-}
-
-string Hangman::getRandomWord() const {
-  srand(time(nullptr));
-
-  int index = rand() % m_words.size() + 1;
-
-  return m_words[index];
-}
-
-string Hangman::wordToLower(string word) {
-  locale loc;
-  string wordToLower;
-
-  for (string::size_type i = 0; i < word.length(); i++) {
-    wordToLower += tolower(word[i], loc);
-  }
-
-  return wordToLower;
-}
-
-bool Hangman::isAllowedChar(char t_symbol) {
-  return t_symbol >= 'a' && t_symbol <= 'z';
-}
-
-void Hangman::setPlaceholder() {
-  string placeholder;
-
-  for (int i = 0; i < m_currentWord.length(); i++) {
-    if (isAllowedChar(m_currentWord[i])) {
-      placeholder += "*";
-    } else {
-      placeholder += m_currentWord[i];
-    }
-  }
-
-  m_placeholder = placeholder;
 }
 
 void Hangman::clearScreen() {
@@ -207,8 +118,4 @@ void Hangman::failAttempt() {
   if (m_attempts == m_allowedAttempts) {
     m_isFinished = true;
   }
-}
-
-Localize Hangman::getLocale() {
-  return m_Locale;
 }

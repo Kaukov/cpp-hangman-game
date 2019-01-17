@@ -10,13 +10,13 @@ int main() {
   // TODO
   // Handle repeated answers (wrong and right)
   // Localize
-  Hangman game;
+  Hangman Game("words.txt");
 
   getLanguage();
 
-  game.setLanguage(m_languageId);
+  Game.setLanguage(m_languageId);
 
-  game.run();
+  Game.play();
 
   return 0;
 }
