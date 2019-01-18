@@ -25,15 +25,18 @@ class Hangman {
     void setIsWon(bool t_isWon) { m_isWon = t_isWon; }
     void printGameScreen();
     void clearScreen();
+    void addUsedLetter(char t_letter);
     void correctGuess(char t_letter);
     void failAttempt();
     void printEndGame();
+    bool findUsedLetter(char t_letter);
 
     int                         m_attempts          { 0 };
     int                         m_allowedAttempts   { 7 };
     bool                        m_isFinished        { false };
     bool                        m_isWon             { false };
     std::string                 m_fileName          { "" };
+    std::vector<char>           m_usedLetters;
     char                        m_userInput;
     Localize                    m_Locale;
     Dictionary                  m_Dictionary;

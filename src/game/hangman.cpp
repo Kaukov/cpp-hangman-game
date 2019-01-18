@@ -74,7 +74,10 @@ void Hangman::play() {
     } else if (getWord().isCharContained(m_userInput)) {
       correctGuess(m_userInput);
     } else {
-      failAttempt();
+      if (!findUsedLetter(m_userInput)) {
+        addUsedLetter(m_userInput);
+        failAttempt();
+      }
     }
 
     if (!getIsFinished()) {
@@ -120,4 +123,21 @@ void Hangman::printEndGame() {
   }
 
   cout << endl;
+}
+
+void Hangman::addUsedLetter(char t_letter) {
+  if (!findUsedLetter(t_letter)) {
+    m_usedLetters.push_back(t_letter);
+  }
+}
+
+bool Hangman::findUsedLetter(char t_letter) {
+  for (int i = 0; i < m_usedLetters.size(); i++) {
+    if (m_usedLetters[i] == t_letter) {
+      return true;
+      break;
+    }
+  }
+
+  return false;
 }
