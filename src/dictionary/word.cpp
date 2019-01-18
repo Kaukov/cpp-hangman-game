@@ -25,7 +25,10 @@ void Word::setPlaceholder() {
 }
 
 bool Word::isAllowedChar(char t_symbol) {
-  return t_symbol >= 'a' && t_symbol <= 'z';
+  bool isAllowedEnglish = t_symbol >= 'a' && t_symbol <= 'z';
+  // bool isAllowedBulgarian = t_symbol >= 'а' && t_symbol <= 'я'; // Needs implementation for CP1251
+
+  return isAllowedEnglish;
 }
 
 void Word::updatePlaceholder(int t_index, char t_letter) {

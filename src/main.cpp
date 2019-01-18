@@ -8,11 +8,13 @@ using namespace std;
 int main() {
   // TODO
   // Handle repeated answers (wrong and right)
-  getLanguage();
+  // getLanguage();
 
-  Hangman Game("words.txt");
+  string shortLang = m_languageId == 2 ? "bg" : "en";
 
-  Game.setLanguage(m_languageId);
+  Hangman Game("words_en.txt"); // + shortLang + ".txt");
+
+  Game.setLanguage(1); // Default to English
 
   Game.play();
 
