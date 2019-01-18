@@ -28,6 +28,8 @@ void Hangman::printGameScreen() {
 void Hangman::play() {
   string testInput;
 
+  clearScreen();
+
   getDictionary().initialize(m_fileName);
 
   getWord().setWord(getDictionary().pickRandomWord());
