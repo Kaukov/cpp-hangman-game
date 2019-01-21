@@ -6,10 +6,6 @@
 using namespace std;
 
 int main() {
-  // TODO
-  // Handle repeated answers (wrong and right)
-  // getLanguage();
-
   string shortLang = m_languageId == 2 ? "bg" : "en";
 
   Hangman Game("words_en.txt"); // + shortLang + ".txt");
